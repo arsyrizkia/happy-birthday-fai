@@ -19,9 +19,37 @@ const fetchData = () => {
         // Run amimation if so
         if ( dataArr.length === dataArr.indexOf(customData) + 1 ) {
           animationTimeline();
+          playAudio();
         } 
       });
     });
+    .catch(error => console.error('Error fetching data:', error)); // Log errors if any
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const audio = document.getElementById('background-music');
+
+  // Play audio on any user interaction (click)
+  document.body.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().catch(err => console.error('Audio play failed:', err));
+    }
+  }, { once: true }); // Use { once: true } to ensure it only runs once
+});
+
+// Function to play the audio
+const playAudio = () => {
+  const audio = document.getElementById("background-music");
+  if (audio.paused) {
+    audio.play().catch(err => console.error('Audio play failed:', err));
+  }
+};
+
+// Function to stop and replay the audio
+const replayAudio = () => {
+  const audio = document.getElementById("background-music");
+  audio.currentTime = 0;
+  audio.play().catch(err => console.error('Audio replay failed:', err));
 };
 
 // Animation Timeline
@@ -299,6 +327,7 @@ const animationTimeline = () => {
   const replyBtn = document.getElementById("replay");
   replyBtn.addEventListener("click", () => {
     tl.restart();
+    replayAudio();  // Add this line to replay the audio
   });
 };
 
