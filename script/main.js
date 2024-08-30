@@ -23,7 +23,6 @@ const fetchData = () => {
         } 
       });
     });
-    .catch(error => console.error('Error fetching data:', error)); // Log errors if any
 };
 
 document.addEventListener('DOMContentLoaded', () => {
