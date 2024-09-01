@@ -199,7 +199,39 @@ const animationTimeline = () => {
       },
       "+=2"
     )
-    .staggerFrom(
+
+/// Add this block after idea-5 animations and before idea-6 animations
+
+// Create a timeline to handle each paragraph separately
+const additionalTextParagraphs = document.querySelectorAll(".additional-text p");
+
+additionalTextParagraphs.forEach((p, index) => {
+  tl.from(
+    p,
+    0.7, // Duration of fade-in
+    {
+      opacity: 0,
+      y: 20,
+      skewX: "15deg",
+      ease: Power3.easeOut
+    },
+    `+=${index > 0 ? 1.5 : 0}` // Delay each paragraph based on its index; no delay for the first
+  )
+  .to(
+    p,
+    0.7, // Duration of fade-out
+    {
+      opacity: 0,
+      y: -20,
+      skewX: "-15deg",
+      ease: Power3.easeIn
+    },
+    "+=0.8" // Start fading out after it's been fully visible
+  );
+});
+
+
+    tl.staggerFrom(
       ".idea-6 span",
       0.8,
       {
